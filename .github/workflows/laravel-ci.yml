@@ -6,6 +6,7 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -38,7 +39,7 @@ jobs:
       - name: Run Laravel tests
         run: php artisan test
 
-    deploy:
+  deploy:
     name: Deploy to EC2
     needs: tests
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -56,3 +57,4 @@ jobs:
             hostname
             cd /var/www/php-demo
             git status --short
+
